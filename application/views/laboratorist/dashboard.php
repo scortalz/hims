@@ -5,12 +5,12 @@
             <!--big normal buttons-->
             <div class="action-nav-normal">
                 <div class="row-fluid">
-                    <div class="span2 action-nav-button">
+<!--                     <div class="span2 action-nav-button">
                         <a href="<?php echo base_url();?>index.php?laboratorist/manage_prescription">
                         <i class="icon-stethoscope"></i>
                         <span><?php echo get_phrase('add_diagnosis_report');?></span>
                         </a>
-                    </div>
+                    </div> -->
                     <div class="span2 action-nav-button">
                         <a href="<?php echo base_url();?>index.php?laboratorist/manage_blood_bank">
                         <i class="icon-tint"></i>

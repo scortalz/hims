@@ -24,7 +24,7 @@ $check = date("is");
 					</div>
 
 					<h3></h3>
-              <?php echo form_open('waiting', array('class' => 'form-dhorizontal validatable'));?>
+              <?php echo form_open('waiting', array('class' => 'form-dhorizontal validatable','id' => 'testform'));?>
                         <div class="padded">
                             <div class="control-group">
 
@@ -47,9 +47,9 @@ $check = date("is");
         <option value="<?php echo $report['name'];?>"><?php echo $report['name'];?></option>
 <?php } ?>
     </select>
-    <input type="text" class="form-control result" id="result">
-    <input type="text" class="form-control interval" id="interval">
-    <button type="button" class="btn btn-blue bot"><?php echo get_phrase('Generate report');?></button>
+    <input type="text" class="form-control result" name="result" id="result">
+    <input type="text" class="form-control interval" name="interval" id="interval">
+    <button type="submit" class="btn btn-blue bot"><?php echo get_phrase('add report');?></button>
 
                             </div>
                 </div>  
@@ -132,7 +132,27 @@ $check = date("is");
 	</div>
 </div>
 <?php } ?>
+<script src="<?php echo base_url();?>template/js/jquery.validate.min.js"></script>
+<script src="<?php echo base_url();?>template/js/additional-methods.min.js"></script>
+
 <script type="text/javascript">
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+
+$( "#testform" ).validate({
+  rules: {
+    result: {
+      required: true,
+      number: true
+    },
+    interval: {
+      required: true,
+      number: true
+    }
+  }
+});
 
 $('#test').select2();
 
