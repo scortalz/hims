@@ -257,7 +257,7 @@
           <div class="control-group">
               <label class="control-label"><?php echo get_phrase('patient');?></label>
               <div class="controls" style="width:80% !important;">
-                  <select class="" name="patient_id" id="patient_id" tabindex="1" style="width:215px;">
+                  <select class="patientsel" name="patient_id" id="patient_id" tabindex="1" style="width:215px;">
                   <option value="-1">-----Please Select Patient-----</option>
                                   <?php 
                                   $this->db->order_by('account_opening_timestamp' , 'asc');
@@ -411,7 +411,7 @@
                      <div class="control-group" id="doctors">
               <label class="control-label"><?php echo get_phrase('doctor');?></label>
               <div class="controls">
-                  <select class="" name="doctor_id" id="doctor_id"  style="" tabindex="4" >
+                  <select class="docsel" name="doctor_id" id="doctor_id"  style="" tabindex="4" >
                                   <?php 
                           //$this->db->order_by('account_opening_timestamp' , 'asc');
                           $doctors    =   $this->db->get('doctor')->result_array();
@@ -430,7 +430,7 @@
           <div class="control-group"  id="category" style="display:none;">
               <label class="control-label"><?php echo get_phrase('Category');?></label>
               <div class="controls">
-                  <select name="diagnostictype_id" id="diagnostictype_id" class="chzn-select" />
+                  <select name="diagnostictype_id" id="diagnostictype_id" class="" />
                    <?php 
                         //$this->db->order_by('name' , 'asc');
                         $diagnostictypes    =   $this->db->get('diagnostictype')->result_array();
@@ -587,6 +587,7 @@
 
   
 <script language="javascript">
+$('.patientsel').select2();
 
 $( "#advapt" ).submit(function( event ) {
       

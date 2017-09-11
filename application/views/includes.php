@@ -11,7 +11,8 @@
         <script src="<?php echo base_url();?>template/js/excanvas.js" type="text/javascript"></script>
         <![endif]-->
         <script src="<?php echo base_url();?>template/js/bayanno.js" type="text/javascript"></script>
-
+<link href="<?php echo base_url();?>template/css/select2.min.css" rel="stylesheet" />
+<script src="<?php echo base_url();?>template/js/select2.min.js"></script>
 
         <?php
 		//////////LOADING SYSTEM SETTINGS FOR ALL PAGES AND ACCOUNTS/////////

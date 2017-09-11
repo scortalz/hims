@@ -1,3 +1,5 @@
+
+
 <style>
 .rdelete {
   background: url("template/images/deletesrv.png") no-repeat scroll center top transparent;
@@ -237,7 +239,7 @@
                             <div class="control-group">
                                 <label class="control-label"><?php echo get_phrase('patient');?></label>
                                 <div class="controls" style="width:80% !important;">
-                                    <select class="" name="patient_id" id="patient_id" tabindex="1" style="width:215px;">
+                                    <select class="patientsel" name="patient_id" id="patient_id" tabindex="1" style="width:215px;">
                                     <option selected value="-1">--------Select Patient--------</option>}
                                     option
                                   <?php 
@@ -349,7 +351,6 @@
                                        <option value="B+">B+</option>
                                        <option value="B-">B-</option>
                                        <option value="AB+">AB+</option>
-                                       <option value="AB+">AB+1</option>
                                        <option value="AB-">AB-</option>
                                        <option value="O+">O+</option>
                                        <option value="O-">O-</option>
@@ -377,7 +378,7 @@
                          <div class="control-group" id="doctors">
                                 <label class="control-label"><span class="doc-sel" style="display:none;"> Your Current: </span><?php echo get_phrase('doctor');?></label>
                                 <div class="controls">
-                                    <select class="" name="doctor_id" id="doctor_id"  style="" tabindex="4" >
+                                    <select class="doctor" name="doctor_id" id="doctor_id"  style="" tabindex="4" >
                                   <?php 
                                   //$this->db->order_by('account_opening_timestamp' , 'asc');
                                   $doctors  = $this->db->get('doctor')->result_array();
@@ -503,6 +504,8 @@
 
 <script language="javascript">
 
+
+$('.patientsel').select2();
 
 $('#patient_id').change(function() {
 
@@ -1299,6 +1302,7 @@ var appendTxt = "<tr class='mytr-inv-data'><td id='selected_service_id' align='c
         //alert(response);
         $('#invoice_services').html(response);
           // TestTest
+          $('.servicesel').select2();
           $('#selected_services').change( function()
           {     
             //alert('asdasd');
@@ -1426,6 +1430,7 @@ var appendTxt = "<tr class='mytr-inv-data'><td id='selected_service_id' align='c
       }
      setTimeout(inputsearch, 1000);
   });
+
 </script>
 
 

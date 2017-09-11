@@ -15,7 +15,7 @@
 					{ 
 						?>
                      
-						<select name="selected_services" id="selected_services"  class="chzn-select">
+						<select name="selected_services" id="selected_services"  class="servicesel">
                         <option value="-1">-------Select Service------</option>
                   		<?php
 						foreach ($GAS as $value) 
