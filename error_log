@@ -1,0 +1,16 @@
+[18-Dec-2014 07:17:41 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/reception/ipdaddservice.php on line 111
+[18-Dec-2014 09:34:09 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/ipdaddservice.php on line 111
+[18-Dec-2014 09:41:57 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/manage_rate.php on line 166
+[18-Dec-2014 09:44:09 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/ipdaddservice.php on line 111
+[18-Dec-2014 10:37:44 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/bed_schedule.php on line 43
+[18-Dec-2014 10:45:59 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/reception/bed_schedule.php on line 43
+[18-Dec-2014 10:48:03 UTC] PHP Fatal error:  Class 'Db' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/reception/bed_schedule.php on line 43
+[10-Jan-2015 11:21:49 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/manage_rate.php on line 166
+[20-Feb-2015 05:32:02 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/products/demo/incisivehims/application/views/admin/manage_rate.php on line 166
+[16-Nov-2015 10:00:58 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/productsdemo.org/incisivehims/application/views/admin/manage_rate.php on line 166
+[16-Nov-2015 10:01:26 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/productsdemo.org/incisivehims/application/views/admin/manage_rate.php on line 166
+[16-Sep-2016 08:28:35 America/Chicago] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/incisivesoft.com/demo/incisivehims/application/views/admin/manage_rate.php on line 166
+[10-Oct-2016 16:12:37 UTC] PHP Fatal error:  Class 'DOMPDF' not found in /home/incisive/public_html/incisivesoft.com/demo/incisivehims/application/views/admin/manage_rate.php on line 166
+[10-Oct-2016 16:39:36 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in /home/incisive/public_html/incisivesoft.com/demo/incisivehims/application/dompdf/lib/class.pdf.php on line 1388
+[10-Oct-2016 16:40:01 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 131072 bytes) in /home/incisive/public_html/incisivesoft.com/demo/incisivehims/application/dompdf/lib/class.pdf.php on line 1388
+[10-Oct-2016 16:44:52 UTC] PHP Fatal error:  Allowed memory size of 33554432 bytes exhausted (tried to allocate 72 bytes) in /home/incisive/public_html/incisivesoft.com/demo/incisivehims/application/dompdf/include/style.cls.php on line 552

@@ -1,0 +1,12 @@
+.invoice not coming properly.done
+.approved discount testing.done
+.Hospital Charges,Room charges,OT charges,Bed Charges.
+.Room Booking and Room not show when it is already booked.
+.Discharge Bed provision.
+.Bed Allotment not show if it is already booked.
+.Show Bed Allotment on drop down when patient is release.
+.OT pdf alignment setting remaining.
+.Bed Schedule alignment setting remaining.done
+.Patient Pay advance money works remain.
+
+

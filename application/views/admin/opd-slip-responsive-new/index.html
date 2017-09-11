@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>OPD-SLIP</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+</head>
+
+<body style=" font-size: 14px;margin: 0px;text-align: center;background: #ddd; color: #333;font-family: Helvetica, Arial, sans-serif;padding: 40px 0;	     line-height: 1.5em;width:60%;margin-left:auto;margin-right:auto;">
+<style>
+@media only screen and (max-width : 640px) {
+body
+{ 
+	width:98% !important;
+	margin:0px;
+	
+	
+}
+div#opd-box1
+{
+	width:90%;
+	padding:2em;
+}
+.strokeme
+{
+	width:95%;
+}
+div#strokeme1
+{
+	width:95%;
+}
+div#opd-result
+{
+	width:95%;
+}
+div#total-bill
+{
+	width:95%;
+}
+#logo
+{
+	width:95%;
+	position:relative;
+	top: 20px;
+}
+#main
+{
+	height:26em;
+	margin: 0px;
+	padding: 3px;
+}
+}
+</style>
+<div id="main" style="margin:0;padding: 0;width: 100%;height: 25em;position:relative;background:#fff;">
+<header>
+<div id="logo" style="width:26%;
+	padding-top:5px;">
+  <img src="img/logo.png" width="140" height="45"></div><!---end logo---->
+ </header>
+ 		<div id="opd-box" style="width:100%;height:290px;">
+  		<div id="opd-box1" style="width:96%;float:left;font-size: 0.8em;font-weight: bold;border-radius:20px 20px 20px 20px;
+			border-color:1px dotted #000;height:280px;padding:1em;"> 
+       			 <span style="float: left;padding: 10px;text-align: left;">OPD NO:47</span>
+  				 <span style="float: right;padding: 10px;text-align: left;">*PATIENT COPY *</span>
+		<div class="strokeme" style="color:#000; width:100%;
+	border-style:solid;border-color:#000;height: 116px;float: left;border-radius: 20px 20px 20px 20px;">
+						<p style="position: relative;float:left;left: 1em;">SLIP # 182505 / 0 / 0</p>
+				<span style="padding: 1em;float: right;">13/05/2014</span>
+				<span style="padding: 1em;float: right;">9:45:29PM</span>
+			<div id="bx1" style="color: #000;font-size: 1em;font-weight: bold;width:100%;height: 1px;float: left;border-radius: 10px 10px 10px 10px;position: relative;height:18px">
+				<span style="float: left;left: 1em;position: relative;">Patient : ESHAL</span>
+				<span style="float: right;position: relative;left: -9em;">Sex : M </span></div><!---end bx1--->
+			<div id="bx2" style="color: #000;font-size: 1em;width: 100%;height: 1px;float: right;position: relative;height: 2em;"> 
+				<span style="float: left;position: relative;left: 1em; text-align:left;">Reffered By : SELF</span>
+				<span style="float: right;position: relative;left: -1em;">Age : 1 Y </span>  
+            </div><!----end bx2 --->
+			<div class="bx3" style="color: #000;font-size: 1em;width: 100%;height: 1px;float: right;position: relative;height: 12px;">
+            	<span style="float: left;position: relative;left: 10px; width:70%;text-align:left;">OPD DOCT0R : DR SHAHZAD RM0</span>
+				<span style="float: right;position: relative;left: -5px;">Shift : Evening </span></div><!----end bx3 --->	
+			</div><!--end-strokeme-->
+			<div id="strokeme1" style="color: #000;font-size: 0.8em;font-weight: bold;width: 100%;border-style: solid;border-color: #000;height: 23px;float: left;padding:0px;border-radius: 10px 10px 10px 10px;position: relative;top: 2px;">
+				<span style="float: left;position: relative;left: 1em;">S.No</span>
+				<span style="float: left;padding-left: 2em;" >CHARGES DESCRIPTION</span>
+				<span>AMOUNT</span>
+			</div><!---strokeme1-->
+			<div id="opd-result" style="color: #000;font-size: 0.8em;font-weight: bold;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 			            #000,: 1px 1px 0 #000;width: 100%;border-bottom: 1px solid #000;height: 23px;float: left;position: relative;top: 2px;">
+				<span style="float: left;position: relative;left: 2em;">1 </span>
+				<span style="float: left;padding-left: 3em;left: 11px;position: relative;text-align: left;">GENERAL OPD MALE</span>
+				<span style="position: relative;left: 1em;">100</span>
+			</div><!---opd-result--->
+			<div id="total-bill" style="color: #000;font-size: 0.8em;font-weight: bold;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0              #000,: 1px 1px 0 #000;width: 100%;height: 23px;float: left;position: relative;top: 2px;">
+				<span style="float: left;">TOTAL BILL</span>
+				<span style="position: relative;float: left;width: 100px;text-align: right;">NET AMOUNT</span>
+				<span>RECIEVED</span>
+				<span style="float:right;">Balance</span>
+			</div><!----totalbill-end--->
+			<div id="total-bill" style="color: #000;font-size: 0.8em;font-weight: bold;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0              #000,: 1px 1px 0 #000;width: 100%;height: 23px;float: left;position: relative;top: 2px;">
+				<span style="float: left;">100</span>
+				<span style="position: relative;float: left;width: 100px;text-align: right;">100</span>
+				<span>100</span>
+				<span style="float:right;">100</span>
+				</div><!----totalbill-end--->
+			<div id="bx8" style="	color: #000;font-size: 0.8em;font-weight: bold;text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,: 1px 1px 0 #000;width: 100%;float: left;position: relative;text-align: center;">
+				<span>** This is computer generated slip, No signature required **</span>
+			</div><!---bx8-end-->
+            </div><!---opd-box1-->
+    		
+    
+</div>
+<!--end-main -->
+</body>
+</html>

@@ -1,0 +1,16 @@
+database.php
+root : D:\xampp\htdocs\incisivehims\application\config
+custom_config.php
+root: D:\xampp\htdocs\incisivehims\application\helpers
+mydb.php
+root : D:\xampp\htdocs\incisivehims\application\helpers
+custom_config.php
+root : D:\xampp\htdocs\incisivehims
+database.php
+root : D:\xampp\htdocs\incisivehims\application\config
+     in all above files db included 
+
+
+somaliasoft_hims
+Som@lia5oft2017
+somaliasoft_hims

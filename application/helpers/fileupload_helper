@@ -1,0 +1,17 @@
+<?php
+
+public function upload($filename){
+	   $config['upload_path']          = './uploads/';
+       $config['allowed_types']        = 'jpg|png';
+       $config['max_size']             = 5000;
+       $config['encrypt_name']         = TRUE;
+    /*   $config['max_width']            = 1024;
+       $config['max_height']           = 768;*/
+
+       $this->load->library('upload', $config);
+
+       if ($this->upload->do_upload($filename))
+       {
+	       	return $this->upload->data();
+       }
+	}
