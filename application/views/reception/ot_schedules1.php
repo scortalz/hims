@@ -1,7 +1,6 @@
 <div class="box">
 <div class="box-header">
     
-    	<!------CONTROL TABS START------->
 		<ul class="nav nav-tabs nav-tabs-left">
 			<li >
             	<a href="#OT1" data-toggle="tab"><i class="icon-align-justify"></i> 
@@ -14,7 +13,6 @@
 					 echo get_phrase('OT_Schedule1');?>
                     	</a></li>
 		</ul>
-    	<!------CONTROL TABS END------->
         
 	</div>
     <br />

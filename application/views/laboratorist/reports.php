@@ -2,6 +2,8 @@
 $selectedservice = $this->db->get_where('patient_services', array(
 				'id' => $this->uri->segment(4)
 			))->result_array();
+ 
+$check = date("is");
  ?>
 
 
@@ -10,7 +12,9 @@ $selectedservice = $this->db->get_where('patient_services', array(
 			<div class="tab-pane box" id="tab1" >
                 <div class="box-content pagination-centered">
 					<div class="jumbotron">
-					<?php foreach ($selectedservice as $selectedrow) { ?>
+
+					 
+                     <?php   foreach ($selectedservice as $selectedrow) { ?>
 						
 					
 				<h1><?php $dptname = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $selectedrow['service_id']))->result_array(); echo get_phrase($dptname[0]['dept_name']) ;?></h1>
@@ -36,60 +40,39 @@ $selectedservice = $this->db->get_where('patient_services', array(
 	                        </div>
            <?php } ?>         
 
-                            </div>
-                <div class="control-group">
-                            <label class="control-label"><?php echo get_phrase('Select');?></label>
-                            <div class="controls">
-                            <select class="" name="" id="">
+<?php $reports = $this->db->get_where('diagnosticservice',array('diagnostictype_id' => 1 ))->result_array(); ?>
+    <select name="test" id="test" >
 
-                              <option value="">--------------SELECT--------------</option>
+    <?php foreach($reports as $report) { ?>
+        <option value="<?php echo $report['name'];?>"><?php echo $report['name'];?></option>
+<?php } ?>
+    </select>
+    <input type="text" class="form-control result" id="result">
+    <input type="text" class="form-control interval" id="interval">
+    <button type="button" class="btn btn-blue bot"><?php echo get_phrase('Generate report');?></button>
 
-                  			</select>
-                                </div>
                             </div>
+                </div>  
+            </div>
 
-                            <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('option');?></label>
-                                <div class="controls">
-                                    <input type="text" name="" id="" value=""/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('option');?></label>
-                                <div class="controls">
-                                    <input type="text" name="" id="" value=""/>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('option');?></label>
-                                <div class="controls">
-                                    <input type="text" name="" id="" value=""/>
-                                </div>
-                            </div>
-                 <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('option');?></label>
-                                <div class="controls">
-                                    <input type="text" name="" id="" value=""/>
-                                </div>
-                            </div>
-                <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('option');?></label>
-                                <div class="controls">
-                                    <input type="text" name="" id="" value=""/>
-                                </div>
-                            </div>
-              <div class="control-group">
-                                <label class="control-label"><?php echo get_phrase('care of');?></label>
-                                <div class="controls">
-                                    <input type="text" name="careof" id="careof" value=""/>
-                                </div>
-                            </div>
-
-               <div class="form-actions">
-                            <button type="submit" class="btn btn-blue"><?php echo get_phrase('Generate report');?></button>
-                        </div>
+ 
                         <?php } ?>
                     <?php echo form_close();?>
+
+
+
+                    <table style="width:100%" border="1" class="testrep">
+        <thead>
+        <tr style="">
+            <th align="center" style="width: 331px;">Test</th>
+            <th align="center" style="width: 331px;">Result</th>
+            <th align="center" style="width: 331px;">Reference Interval</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        </tbody>
+    </table>
                 </div>                
 			</div>
 		</div>
@@ -149,3 +132,19 @@ $selectedservice = $this->db->get_where('patient_services', array(
 	</div>
 </div>
 <?php } ?>
+<script type="text/javascript">
+
+$('#test').select2();
+
+ $('.bot').click(function(){   
+    var test     = $('#test').val();
+    var result   = $('.result').val();
+    var interval = $('.interval').val();
+
+    
+$('.testrep').append('<tr style="color:#5f5f5f;"><td align="center">'+test+'</td>'+
+    '<td align="center">'+result+'</td>'+'<td align="center">'+interval+'</td></tr>');
+ $('.result').val('');
+ $('.interval').val('');
+});
+</script>
