@@ -351,6 +351,26 @@ $sql="SELECT * FROM ot_details od ,ot INNER JOIN doctor d ON ot.doctor_id = d.do
 
 }
 
+	public function insertservices($mrnum,$serviceid,$repsession,$test,$result,$interval)
+	{
+		
+	$pcon = $this->getConnection();
+	$this->selectDB($pcon);
+
+	$sql = "INSERT INTO lab_rep (paitent_reg_no, service_id, rep_session,
+	test, result,intvl) 
+		VALUES ('".$mrnum."',".$serviceid.",".$repsession.",'".$test."',".$result.",".$interval.")";		
+	
+	if(mysql_query($sql) == true){
+		return true;
+	}
+	else {
+
+		return false;
+	}
+
+}
+
 public function savesim(){
 	
 }

@@ -1,6 +1,6 @@
-<script
+<!-- <script
   src="<?php echo base_url();?>template/js/jquery-3.2.1.min.js"
-  ></script>
+  ></script> -->
 <!--           <script src="<?php echo base_url();?>template/js/jquery.js" type="text/javascript"></script> -->
 <link rel="stylesheet" href="<?php echo base_url();?>template/css/font.css">
 		<!--<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800">-->

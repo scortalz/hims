@@ -3,12 +3,12 @@
 
 
 	<head>
-	<title>Patient Slip (OPD)</title>
+	<title>Lab reports</title>
 	<link rel="stylesheet" href="<?php echo base_url();?>template/css/bootstrap.min.css">
  <script
   src="<?php echo base_url();?>template/js/jquery-3.2.1.min.js"
   ></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="<?php echo base_url();?>template/js/bootstrap.min.js"></script>
 	<style>
     *{
 	padding:0;
@@ -340,10 +340,10 @@
                 </table>
 				
 			</div>
-				<?php if($invoice_data->num_rows()>0) {?>
-				<?php foreach($invoice_data->result() as $data ):?>
+
+			<?php $patient = $this->db->get_where('patient',array('patient_reg_no' => $report[0][paitent_reg_no]))->result_array();?>
 			<div class="contain">
-				<div class="heading" style="width:100%;font-size:20px;font-weight:bold;margin-top:0px;"><center>Patient Slip (<?php echo $data->patient_type; ?>)</center></div>
+				<div class="heading" style="width:100%;font-size:20px;font-weight:bold;margin-top:0px;"><center>Patient Slip (<?php echo $patient[0]['patient_type'];?>)</center></div>
 				<br />
 				<table class="table">
 
@@ -351,16 +351,18 @@
 						<tbody style="padding:5px !imported;">
                 		<tr >
                 			
-                			<td style="padding:5px;"><label>Slip No :</label><label style = "margin-left:2%;"><?php echo $data->invoice_number;?></label></td>
-                			<td><label>Date :</label><label style = "margin-left:2%;"><?php echo $data->creation_time;?></label></td>
+                			<td style="padding:5px;"><label>From :Labortorist</label><label style = "margin-left:2%;"></label></td>
+                			<td><label>Date :<?php echo date('Y-m-d');?></label><label style = "margin-left:2%;"></label></td>
                 		</tr>
                 		<tr>
-                			<td><label>Patient Name :</label><label style = "margin-left:2%;"><?php echo $data->patient_name;?></label></td>
-                			<td><label>Age :</label><label style = "margin-left:2%;"><?php echo $data->age;?></label></td>
+                			<td><label>Patient Name : <?php echo $patient[0]['name'];?></label><label style = "margin-left:2%;"></label></td>
+                			<td><label>Age :<?php echo $patient[0]['age'];?></label><label style = "margin-left:2%;"></label></td>
                 		    </tr>
                 		    <tr>
-                			<td><label>User :</label><label style = "margin-left:2%;"><?php  echo $name = $this->session->userdata('reception_name');?></label></td>
-                			<td><label>RMO/Consultant :</label><label style = "margin-left:2%;"><?php echo $data->doctor_name?></label></td>
+                			<td><label>User :<?php echo $this->session->userdata('laboratorist_name');?></label><label style = "margin-left:2%;"></label></td>
+
+                			<?php $doc = $this->db->get_where('doctor',array('doctor_id' => $patient[0]['doctor_id']))->result_array();?>
+                			<td><label>RMO/Consultant :<?php echo $doc[0]['name']?></label><label style = "margin-left:2%;"></label></td>
                 		</tr>
                 		<tr>
                 			<td><label>Shift :</label><label style = "margin-left:2%;"><?php if(date("G") < 18 && date("G") > 6)  { echo "Morning"; } else { echo "Night"; }?></label></td>
@@ -379,57 +381,25 @@
 					
 						<thead>
 							<tr class ="border_top">
-								<th ><label style="font-size:20px ; font-weight:bold;color:black;">Sno</label></th>
-								<th colspan="8"><label  style="font-size:20px ; font-weight:bold;color:black;">Discription</label></th>
+								<th ><label style="font-size:20px ; font-weight:bold;color:black;">#</label></th>
+								<th colspan="8"><label  style="font-size:20px ; font-weight:bold;color:black;">test</label></th>
 								
-								<th style="text-align:center;"><label  style="font-size:20px ; font-weight:bold;color:black;">Amount</label></th>
+								<th style="text-align:center;"><label  style="font-size:20px ; font-weight:bold;color:black;">Result</label></th>
+								<th style="text-align:center;"><label  style="font-size:20px ; font-weight:bold;color:black;">Interval</label></th>
 							</tr>
 						</thead>
 						<tbody>
-							<?php $count=1;?>
-							<?php if($service_name->num_rows()>0){ ?>
-							<?php foreach($service_name->result() as $service_name):?>
-						    <?php if($service_name->service_name !=null){ ?>
-
+							
+						<?php $count = 1; foreach($report as $value){ ?>
 						
 						            <tr>
-							            <td><label><?php echo $count++;?></label></td>
-			                            <td colspan="8"><label ><?php echo $service_name->service_name;?></label></td>
-			                            <td align="center"><label><?php echo $service_name->service_amount;?></label></td> 
-			                            
+				            <td><label><?php echo $count++;?></label></td>
+                    <td colspan="8"><label ><?php echo $value['test'];?></label></td>
+                    <td align="center"><label><?php echo $value['result'];?></label></td> 
+                    <td align="center"><label><?php echo $value['intvl'];?></label></td> 
 			                         </tr>
-			                     <?php } endforeach; 
-			                           }else{ ?>
-			                           <tr>
-			                           	<td><label><?php echo $count++;?></label></td>
-			                           	<td colspan="8"><label><?php echo "consultation";?></label></td>
-			                           	<td align="center"><label><?php echo $data->totalamount;?></label></td>
-			                           </tr>
-
-			                    <?php  } ?>
-			                    
-			                        <tr>
-			                        	<td colspan="9" align="right" ><label ><span class="a">Total Amount</span></label></td>
-			                        	<td align="center"><label ><span class="b"><?php echo $data->totalamount;?></span></label></td>
-			                        </tr>
-			                        <?php /*$discountamount = $data->discountamount;?>
-			                        <?php if($discountamount > 0){?>
-			                         <tr>
-			                        	<td colspan="9" align="right" ><label ><span class="a">Discount</span></label></td>
-			                        	<td align="center"><label ><span class="b"><?php echo $data->discountamount;?></span></label></td>
-			                        </tr>
-			                        <?php } */?>
-			                         <tr>
-			                        	<td colspan="9" align="right" ><label ><span class="a">Panel Amount</span></label ></td>
-			                        	<td align="center"><label ><span class="b">0.00</span></label></td>
-			                        </tr>
-			                         <tr>
-			                        	<td colspan="9" align="right" ><label ><span class="a">Cash Recieved</span></label ></td>
-			                        	<td align="center"><label ><span class="b"><?php echo $data->recievedamount;?></span></label></td>
-			                        </tr>
-			                        
-			                    
-			                        <?php endforeach; } ?>
+			                  <?php } ?>
+			                     
 			                       </tbody>
 			                       </table >
 			 
@@ -437,9 +407,7 @@
                        <tbody>
                         <tr>
 
-							<td><label>Printed By: <?php  echo $name = $this->session->userdata('reception_name');?> Print Date-Time :<?php 
-								echo date('Y-m-d H:i', time());
-							?></label></td>
+							<td><label>Printed By:<?php echo $this->session->userdata('laboratorist_name');?>  Print Date-Time :<?php echo date('Y-m-d----h:i:s');?></label></td>
                             <td colspan="2"><label></label></td>
                             <td><label><u></u></label></td>
 						</tr>

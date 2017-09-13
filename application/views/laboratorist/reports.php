@@ -3,7 +3,7 @@ $selectedservice = $this->db->get_where('patient_services', array(
 				'id' => $this->uri->segment(4)
 			))->result_array();
  
-$check = date("is");
+$check  = abs(crc32(uniqid()));
  ?>
 
 
@@ -14,7 +14,7 @@ $check = date("is");
 					<div class="jumbotron">
 
 					 
-                     <?php   foreach ($selectedservice as $selectedrow) { ?>
+                     <?php foreach ($selectedservice as $selectedrow) { ?>
 						
 					
 				<h1><?php $dptname = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $selectedrow['service_id']))->result_array(); echo get_phrase($dptname[0]['dept_name']) ;?></h1>
@@ -24,7 +24,7 @@ $check = date("is");
 					</div>
 
 					<h3></h3>
-              <?php echo form_open('waiting', array('class' => 'form-dhorizontal validatable','id' => 'testform'));?>
+              <?php echo form_open('', array('class' => 'form-dhorizontal validatable','id' => 'testform'));?>
                         <div class="padded">
                             <div class="control-group">
 
@@ -36,12 +36,16 @@ $check = date("is");
 		<?php } else {  ?>
               <label class="control-label"><?php echo get_phrase($patientname[0]['name']); ?></label>
 	                        <div class="controls">
-	                        <input type="text" readonly name="" value="<?php echo $selectedrow['patient_reg_no'];?>" />
+	                        <input type="hidden" readonly name="mrnumber" id="mrnumber" value="<?php echo $selectedrow['patient_reg_no'];?>" />
+                            <input type="hidden" name="serviceid" id="serviceid" value="<?php echo $selectedrow['service_id'];?>" />
+                            <input type="hidden" name="rep_session" id="rep_session" value="<?php echo $check; ?>" />
 	                        </div>
+
            <?php } ?>         
 
 <?php $reports = $this->db->get_where('diagnosticservice',array('diagnostictype_id' => 1 ))->result_array(); ?>
-    <select name="test" id="test" >
+    <select name="test" id="test">
+    <option value="">choose....</option>
 
     <?php foreach($reports as $report) { ?>
         <option value="<?php echo $report['name'];?>"><?php echo $report['name'];?></option>
@@ -61,7 +65,7 @@ $check = date("is");
 
 
 
-                    <table style="width:100%" border="1" class="testrep">
+        <table style="width:100%" border="1" class="testrep">
         <thead>
         <tr style="">
             <th align="center" style="width: 331px;">Test</th>
@@ -74,8 +78,9 @@ $check = date("is");
         </tbody>
     </table>
                 </div>                
-			</div>
-		</div>
+            </div>
+        </div>
+       <center> <a type="button" href="<?php echo base_url();?>index.php?laboratorist/getlabreport/<?php echo $check; ?>" class="btn btn-blue"><?php echo get_phrase('generate report');?></a> </center>
 
 <?php } else { ?>
 <div class="box">
@@ -127,6 +132,8 @@ $check = date("is");
                            <?php } ?>
                         </tbody>
                     </table>  
+
+
                 </div>                
 			</div>
 	</div>
@@ -136,12 +143,11 @@ $check = date("is");
 <script src="<?php echo base_url();?>template/js/additional-methods.min.js"></script>
 
 <script type="text/javascript">
-jQuery.validator.setDefaults({
-  debug: true,
-  success: "valid"
-});
 
-$( "#testform" ).validate({
+
+$( '#testform' ).validate({
+ 
+
   rules: {
     result: {
       required: true,
@@ -150,21 +156,53 @@ $( "#testform" ).validate({
     interval: {
       required: true,
       number: true
-    }
+    },
+    test: {
+      required: true
+  }
   }
 });
 
 $('#test').select2();
 
- $('.bot').click(function(){   
-    var test     = $('#test').val();
-    var result   = $('.result').val();
-    var interval = $('.interval').val();
+/* $('.bot').click(function(){   
 
-    
-$('.testrep').append('<tr style="color:#5f5f5f;"><td align="center">'+test+'</td>'+
-    '<td align="center">'+result+'</td>'+'<td align="center">'+interval+'</td></tr>');
- $('.result').val('');
- $('.interval').val('');
+
+});
+*/ $('#testform').submit(function(event){
+
+    event.preventDefault();
+    var test        = $('#test').val();
+    var result      = $('.result').val();
+    var interval    = $('.interval').val();
+    var serviceid   = $('#serviceid').val();
+    var repsession  = $('#rep_session').val();
+    var mrnum       = $('#mrnumber').val();
+
+if (test && result && interval) {
+
+
+
+     $.ajax({
+      type: "POST",
+      url: "<?php echo base_url();?>index.php?laboratorist/insertreport",
+      data: $("#testform").serialize(),
+      dataType: "json",
+
+      success: function(args) {
+       
+
+$('.testrep').append('<tr style="color:#5f5f5f;"><td align="center">'+args.getsess[0]['test']+'</td>'+
+    '<td align="center">'+args.getsess[0]['result']+'</td>'+'<td align="center">'+args.getsess[0]['intvl']+'</td></tr>');
+      /* $.each(args.getsess[0], function(index, el) {
+           console.log(el.test);
+       });*/
+      }
+     });
+
+
+
+}
+
 });
 </script>

@@ -19,6 +19,8 @@ class laboratorist extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('form_validation');
+
 		/*cache control*/
 		$this->output->set_header('Last-Modified: ' . gmdate("D, d M Y H:i:s") . ' GMT');
 		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
@@ -127,6 +129,43 @@ class laboratorist extends CI_Controller
 		$this->load->view('index', $page_data);
 	}
 	
+	public function insertreport(){
+		
+	if ($this->session->userdata('laboratorist_login') != 1)
+			redirect(base_url() . 'index.php?login', 'refresh');
+
+	if(!$this->input->is_ajax_request()){
+			redirect(base_url() . 'index.php?login', 'refresh');
+		}
+
+		$data = array( 
+		'paitent_reg_no' 	=> $this->input->post('mrnumber'),
+		'service_id' 		=> $this->input->post('serviceid'),
+		'rep_session'		=> $this->input->post('rep_session'),
+		'test' 				=> $this->input->post('test'),
+		'result' 			=> $this->input->post('result'),
+		'intvl' 			=> $this->input->post('interval')
+		);
+
+		$reportsession = $this->input->post('rep_session');
+		$this->db->insert('lab_rep',$data);
+
+		$insert_id = $this->db->insert_id();
+		$this->db->select('*');
+		$this->db->from('lab_rep');
+		$this->db->where('rep_id', $insert_id);
+		$report['getsess'] = $this->db->get()->result();
+		echo json_encode($report);
+		
+	}
+
+	function getlabreport($repses = ""){
+		$this->db->select('*');
+		$this->db->from('lab_rep');
+		$this->db->where('rep_session', $repses);
+		$data['report'] = $this->db->get()->result_array();
+		$this->load->view('lab-report',$data);
+			}
 	/*******WATCH AND MANAGE STATUS OF BLOOD GROUPS AND THEIR AVAILABLE AMOUNT OF BAGS********/
 	function manage_blood_bank($param1 = '', $param2 = '', $param3 = '')
 	{
