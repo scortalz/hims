@@ -6,6 +6,22 @@ $selectedservice = $this->db->get_where('patient_services', array(
 $check  = abs(crc32(uniqid()));
  ?>
 
+<style>
+.rdelete {
+  background: url("template/images/deletesrv.png") no-repeat scroll center top transparent;
+    color: #000000;
+    display: block;
+    padding: 9px 0;
+    text-align: center;
+  width:20px;
+  cursor: pointer;
+  font-family: Arial,Helvetica,sans-serif;
+  border: 0px solid #EF7C46;
+  font-weight:bold;
+  text-decoration:none;
+  border-style: none;
+}
+</style>
 
 <div class="box">
 	<div class="box-header">
@@ -55,9 +71,9 @@ $check  = abs(crc32(uniqid()));
     <input type="text" class="form-control interval" name="interval" id="interval">
     <button type="submit" class="btn btn-blue bot"><?php echo get_phrase('add report');?></button>
 
-                            </div>
-                </div>  
-            </div>
+              </div>
+          </div>  
+      </div>
 
  
                         <?php } ?>
@@ -71,6 +87,7 @@ $check  = abs(crc32(uniqid()));
             <th align="center" style="width: 331px;">Test</th>
             <th align="center" style="width: 331px;">Result</th>
             <th align="center" style="width: 331px;">Reference Interval</th>
+            <th align="center" style="width: 147px;">Action</th>
         </tr>
         </thead>
         <tbody>
@@ -181,8 +198,6 @@ $('#test').select2();
 
 if (test && result && interval) {
 
-
-
      $.ajax({
       type: "POST",
       url: "<?php echo base_url();?>index.php?laboratorist/insertreport",
@@ -193,16 +208,35 @@ if (test && result && interval) {
        
 
 $('.testrep').append('<tr style="color:#5f5f5f;"><td align="center">'+args.getsess[0]['test']+'</td>'+
-    '<td align="center">'+args.getsess[0]['result']+'</td>'+'<td align="center">'+args.getsess[0]['intvl']+'</td></tr>');
+    '<td align="center">'+args.getsess[0]['result']+'</td>'+'<td align="center">'+args.getsess[0]['intvl']+'</td>'+ '<td style="width: 8%;" align="center"><a class="rdelete" onclick="delete_rep('+args.getsess[0]['rep_id']+')"></a></td>' +'</tr>');
       /* $.each(args.getsess[0], function(index, el) {
            console.log(el.test);
        });*/
       }
      });
 
-
+$('.result').val('');
+$('.interval').val('');
 
 }
 
 });
+
+$(".testrep").on('click', '.rdelete', function () {
+    $(this).closest('tr').remove();
+});
+
+function delete_rep(rowid)
+    {
+      $.ajax({
+      type: "POST",
+      url: "<?php echo base_url();?>index.php?laboratorist/insertreport/"+rowid,
+       data: {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'},
+      dataType: "html",
+
+      success: function(args) {
+       /* alert(args)*/
+      }
+    });
+    }
 </script>

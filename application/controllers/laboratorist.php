@@ -129,7 +129,7 @@ class laboratorist extends CI_Controller
 		$this->load->view('index', $page_data);
 	}
 	
-	public function insertreport(){
+	public function insertreport($rowdel = ''){
 		
 	if ($this->session->userdata('laboratorist_login') != 1)
 			redirect(base_url() . 'index.php?login', 'refresh');
@@ -138,6 +138,14 @@ class laboratorist extends CI_Controller
 			redirect(base_url() . 'index.php?login', 'refresh');
 		}
 
+		if(is_numeric($rowdel)) {
+			$this->db->where('rep_id',$rowdel);
+			$this->db->delete('lab_rep');
+		}
+
+		if (empty($rowdel)) {
+		
+		
 		$data = array( 
 		'paitent_reg_no' 	=> $this->input->post('mrnumber'),
 		'service_id' 		=> $this->input->post('serviceid'),
@@ -155,16 +163,22 @@ class laboratorist extends CI_Controller
 		$this->db->from('lab_rep');
 		$this->db->where('rep_id', $insert_id);
 		$report['getsess'] = $this->db->get()->result();
-		echo json_encode($report);
 		
+		echo json_encode($report);
+		}
 	}
 
 	function getlabreport($repses = ""){
+
+	if ($this->session->userdata('laboratorist_login') != 1)
+			redirect(base_url() . 'index.php?login', 'refresh');
+
 		$this->db->select('*');
 		$this->db->from('lab_rep');
 		$this->db->where('rep_session', $repses);
 		$data['report'] = $this->db->get()->result_array();
 		$this->load->view('lab-report',$data);
+		
 			}
 	/*******WATCH AND MANAGE STATUS OF BLOOD GROUPS AND THEIR AVAILABLE AMOUNT OF BAGS********/
 	function manage_blood_bank($param1 = '', $param2 = '', $param3 = '')
