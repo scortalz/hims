@@ -26,7 +26,14 @@
 			<span class="glow"></span>
 				<a href="<?php echo base_url();?>index.php?laboratorist/labreports" >
 					<i class="icon-hospital icon-2x"></i>
-				<span><?php echo get_phrase('laboratorist Reports');?></span>
+				<span><?php echo get_phrase('add laboratorist Reports');?></span>
+			</a>
+		</li>
+		<li class="">
+			<span class="glow"></span>
+				<a href="<?php echo base_url();?>index.php?laboratorist/viewrep" >
+					<i class="icon-hospital icon-2x"></i>
+				<span><?php echo get_phrase('view laboratorist Reports');?></span>
 			</a>
 		</li>
         <!--add diagnosis report to prescription-->

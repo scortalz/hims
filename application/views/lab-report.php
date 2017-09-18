@@ -341,7 +341,7 @@
 				
 			</div>
 
-			<?php $patient = $this->db->get_where('patient',array('patient_reg_no' => $report[0][paitent_reg_no]))->result_array();?>
+			<?php $patient = $this->db->get_where('patient',array('patient_reg_no' => $report[0][patient_reg_no]))->result_array();?>
 			<div class="contain">
 				<div class="heading" style="width:100%;font-size:20px;font-weight:bold;margin-top:0px;"><center>Patient Slip (<?php echo $patient[0]['patient_type'];?>)</center></div>
 				<br />
@@ -376,7 +376,8 @@
 				
                  	
 			</div>
-					
+			<?php $srvcname = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $report[0][service_id]))->result_array();?>
+					<center><h1><?php echo get_phrase($srvcname[0][dept_name]) ;?></h1></center>
 			 <table class="table tab">
 					
 						<thead>
