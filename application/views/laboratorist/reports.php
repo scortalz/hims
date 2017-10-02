@@ -226,9 +226,7 @@ if (test && result && interval) {
 
 $('.testrep').append('<tr style="color:#5f5f5f;"><td align="center">'+args.getsess[0]['test']+'</td>'+
     '<td align="center">'+args.getsess[0]['result']+'</td>'+'<td align="center">'+args.getsess[0]['intvl']+'</td>'+ '<td style="width: 8%;" align="center"><a class="rdelete" onclick="delete_rep('+args.getsess[0]['rep_id']+')"></a></td>' +'</tr>');
-      /* $.each(args.getsess[0], function(index, el) {
-           console.log(el.test);
-       });*/
+
       }
      });
 
