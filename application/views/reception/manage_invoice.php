@@ -176,6 +176,7 @@
                     <tr>
                         <th><div>Serial No.</div></th>
                             <th><div><?php echo get_phrase('invoice number');?></div></th>
+                            <th><div><?php echo get_phrase('mr-number');?></div></th>
                             <th><div><?php echo get_phrase('amount');?></div></th>
                             <th><div><?php echo get_phrase('patient');?></div></th>
                             <th><div><?php echo get_phrase('phone number');?></div></th>
@@ -195,6 +196,7 @@
                         <tr>
                            <td><?php echo  $count++;?></td>
                            <td><?php echo  $row['invoice_number'];?></td>
+                           <td><?php echo  $row['patient_reg_no'];?></td>
                            <td><?php echo  $row['totalamount'];?></td>
                            <td><?php echo  $row['patname'];?></td>
                            <td><?php echo   $row['phone'];?></td>
@@ -240,8 +242,7 @@
                                 <label class="control-label"><?php echo get_phrase('patient');?></label>
                                 <div class="controls" style="width:80% !important;">
                                     <select class="patientsel" name="patient_id" id="patient_id" tabindex="1" style="width:215px;">
-                                    <option selected value="-1">--------Select Patient--------</option>}
-                                    option
+                                    <option selected value="-1">--------Select Patient--------</option>
                                   <?php 
                                   $this->db->order_by('account_opening_timestamp' , 'asc');
                                   $patients = $this->db->get('patient')->result_array();
@@ -1294,7 +1295,7 @@ var appendTxt = "<tr class='mytr-inv-data'><td id='selected_service_id' align='c
       
       jQuery.ajax({
       type: "POST",
-      url: "<?php echo base_url();?>/application/helpers/invoice_services_data.php",
+      url: "<?php echo base_url();?>application/helpers/invoice_services_data.php",
       data: ({post_did: did}),
       success: function(response) 
       {

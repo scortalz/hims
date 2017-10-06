@@ -1716,7 +1716,34 @@ INNER JOIN patient p ON pbm.patient_id = p.patient_id WHERE p.patient_reg_no= '"
          FROM invoice i INNER JOIN patient p ON p.patient_id = i.patient_id INNER JOIN doctor d ON i.doctor_id = i.doctor_id
          AND p.doctor_id = d.doctor_id ORDER BY i.invoice_id DESC */
    
-  	$sql = "SELECT p.name AS patname, p.phone, d.name AS doctorname, i.invoice_number,i.totalamount, i.creation_timestamp,i.invoice_id FROM invoice i JOIN patient p ON p.patient_id = i.patient_id LEFT JOIN doctor d ON i.doctor_id = d.doctor_id ORDER BY i.invoice_id DESC";
+  	$sql = "SELECT p.name AS patname, p.patient_reg_no, p.phone, d.name AS doctorname, i.invoice_number,i.totalamount, i.creation_timestamp,i.invoice_id FROM invoice i JOIN patient p ON p.patient_id = i.patient_id LEFT JOIN doctor d ON i.doctor_id = d.doctor_id ORDER BY i.invoice_id DESC";
+		//   echo $sql;   
+		   $RS = mysql_query($sql);
+		   $RC = mysql_num_rows($RS);
+		   $CI=array();
+		   if ($RC > 0)
+		   {   
+			 for ($i=0; $i<$RC; $i++) 
+			 {
+			$CI[$i]=mysql_fetch_array($RS);    
+			 } 
+			 return $CI;
+		   }
+		   
+	}
+
+
+
+
+public function managereportpatient()
+  {
+   
+   	$pcon = $this->getConnection();
+   	$this->selectDB($pcon);
+
+   
+  	$sql = "SELECT p.name AS patname, p.patient_reg_no, p.phone, d.name 
+  	AS doctorname, i.invoice_number,i.totalamount,i.creation_timestamp,i.invoice_id FROM invoice 	i JOIN patient p ON p.patient_id = i.patient_id LEFT JOIN doctor d ON i.doctor_id = d.doctor_id WHERE i.diagnostictype_id > 0 ORDER BY i.invoice_id DESC";
 		//   echo $sql;   
 		   $RS = mysql_query($sql);
 		   $RC = mysql_num_rows($RS);

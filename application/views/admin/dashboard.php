@@ -35,6 +35,12 @@
                         <span><?php echo get_phrase('laboratorist');?></span>
                         </a>
                     </div>
+                    <div class="span2 action-nav-button">
+                        <a href="<?php echo base_url();?>index.php?admin/addservicerelation">
+                        <i class="icon-beaker"></i>
+                        <span><?php echo get_phrase('add service relation');?></span>
+                        </a>
+                    </div>
                    <!-- <div class="span2 action-nav-button">
                         <a href="<?php echo base_url();?>index.php?admin/view_appointment">
                         <i class="icon-exchange"></i>

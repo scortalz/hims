@@ -172,6 +172,36 @@ class Admin extends CI_Controller
 		
 	}
 	
+	function delserviceinfo($val = null){
+			$this->db->where('relation_id', $val);
+			$resp = $this->db->delete('service_relations');
+			$result = false;
+			if ($resp == true) {
+				$result = true;
+			}
+			
+			echo json_encode($result);
+	}
+
+	function addserviceinfo(){
+			$data['service_id'] = $this->input->post('diagnostictype_id');
+			$data['sub_service_name'] = $this->input->post('subservice');
+			$resp = $this->db->insert('service_relations', $data);
+			$result = false;
+			if($resp ==  true){
+				$result = true;
+			} 
+			
+			echo json_encode($result);
+
+	}
+	function addservicerelation($info = null){
+
+		$page_data['page_name']  = 'Add_relation_service';
+		$page_data['page_title'] = get_phrase('Add_relation_service');
+		$page_data['service_relations']    = $this->db->get('service_relations')->result_array();
+		$this->load->view('index', $page_data);
+	}
 	/***Manage doctors**/
 	function manage_doctor($param1 = '', $param2 = '', $param3 = '')
 	{
@@ -184,7 +214,7 @@ class Admin extends CI_Controller
 			$data['password']      = $this->input->post('password');
 			$data['address']       = $this->input->post('address');
 			$data['phone']         = $this->input->post('phone');
-			$data['doj']         = $this->input->post('doj');
+			$data['doj']           = $this->input->post('doj');
 			$data['ratio']         = $this->input->post('ratio');
 			$data['department_id'] = $this->input->post('department_id');
 			$data['speciality_id'] = $this->input->post('speciality_id');

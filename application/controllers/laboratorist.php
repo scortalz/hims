@@ -106,6 +106,29 @@ class laboratorist extends CI_Controller
 		$page_data['prescriptions'] = $this->db->get('prescription')->result_array();
 		$this->load->view('index', $page_data);
 	}
+
+	public function	manage_invoice_report($invoice_no)
+    {
+     $this->db->select('ism.service_amount,ism.service_id,d.name as service_name');
+     $this->db->from('invoice_service_mapping as ism');
+     $this->db->join('diagnosticservice as d','d.diagnosticservice_id=ism.service_id','left');
+     $this->db->where('invoice_no',$invoice_no);
+     $data['service_name']= $this->db->get();   
+    $this->db->select('i.invoice_number,i.totalamount,i.discountamount,i.recievedamount,i.dueamount,i.creation_time,i.createdby,p.patient_reg_no,
+     	                p.name as patient_name,p.patient_type,p.nic_no,p.phone,p.sex,p.age,d.name as doctor_name');
+     $this->db->from('invoice as i');
+     $this->db->join('patient as p','p.patient_id=i.patient_id','left');
+     $this->db->join('doctor as d','d.doctor_id=i.doctor_id','left');
+     $this->db->where('invoice_number',$invoice_no);
+     $result = $this->db->get();
+     $data['invoice_data'] = $result;
+     $this->load->helper('form');
+     $this->load->view('test_invoice_slip',$data);
+
+
+
+
+    }
 	
 
 	function labreports($param1 = '', $param2 = '', $param3 = ''){
@@ -127,6 +150,62 @@ class laboratorist extends CI_Controller
 			))->result_array();
 		
 		$this->load->view('index', $page_data);
+	}
+
+	public function getreport($val = null){
+		$this->db->select('*');
+		$this->db->from('service_relations');
+		$this->db->where('service_id',$val);
+		
+		$data = $this->db->get()->result();
+
+		foreach ($data as $key => $value) {
+			$check[$key] = $value->sub_service_name;
+		}
+	
+		echo json_encode($check);
+	}
+	public function submittest(){
+		$invoice 		= $this->input->post('invoiceno');
+		
+		$mrnumber 		= $this->input->post('mrnum');
+		
+		$service_name	= $this->input->post('servicename');
+		
+		unset($_POST['invoiceno'],$_POST['mrnum'],$_POST['servicename']);
+
+		$number = 1;
+		$data = array();
+		$interval = array();
+
+		foreach ($_POST as $key => $value) {
+
+
+		if ($number % 2 == 0) {
+
+  		$id = $this->db->insert_id();
+  		$interval['interval'] = $value;
+  		$this->db->where('result_id', $id);
+		$this->db->update('patient_test_result', $interval);
+		$number++;
+		
+		}
+
+		else {
+
+		$data['service_name'] 	= $service_name;
+		$data['field_name'] 	= $key;
+		$data['result']			= $value;
+		$data['invoiceno']		= $invoice;
+		$data['patient_reg_no'] = $mrnumber;
+		$this->db->insert('patient_test_result',$data);
+		$number++;
+		
+		}
+
+		}
+		redirect(base_url() . 'index.php?laboratorist/manage_invoice_report/'.$invoice, 'refresh');
+		
 	}
 	
 	public function insertreport($rowdel = ''){

@@ -1,9 +1,5 @@
 <?php if($tab_add == 1){
-$selectedservice = $this->db->get_where('patient_services', array(
-				'id' => $this->uri->segment(4)
-			))->result_array();
- 
-$check  = abs(crc32(uniqid()));
+
  ?>
 
 <style>
@@ -22,150 +18,63 @@ $check  = abs(crc32(uniqid()));
   border-style: none;
 }
 </style>
-           <?php foreach ($selectedservice as $selectedrow) { ?>
-						
 
-          <?php $patientname = $this->db->get_where('patient',array('patient_reg_no' => $selectedrow['patient_reg_no']))->result_array(); ?>
-
-                     <?php  $patient = $patientname[0]['name']; ?>
-          
-          <?php $dptname = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $selectedrow['service_id']))->result_array(); ?>
-
-                      <?php $dname       = $dptname[0]['dept_name']; ?>
-                      <?php $servicename = $dptname[0]['name']; ?>
-
-          <?php $reports = $this->db->get_where('diagnosticservice',array('diagnostictype_id' => 1 ))->result_array(); ?>
-
-  
-<div class="box">
-  <div class="box-header">
-      <div class="tab-pane box" id="tab1" >
-                <div class="box-content pagination-centered">
-                    <div class="jumbotron">
-    <h1><?php if(!empty($dname)){ echo get_phrase($dname); } else {echo "Require Service";} ?></h1>
-                  <h3> <?php echo get_phrase($servicename); ?></h3>
-                  </div>
-                  <?php if (!empty($dname)) { ?>
-
-<?php echo form_open('', array('class' => 'form-dhorizontal validatable','id' => 'testform'));?>
-                      <div class="padded">
-                        <div class="control-group">
-  
-         <?php if(empty($patient)) {  ?>
-
-          <label class="control-label"><?php echo get_phrase('patient not registered'); ?></label>
-
-		<?php } else {  ?>
-
-          <label class="control-label"><?php echo get_phrase($patient); ?></label>
-            <div class="controls">
-              <input type="hidden" readonly name="mrnumber" id="mrnumber" value="<?php echo $selectedrow['patient_reg_no'];?>" />
-              <input type="hidden" name="serviceid" id="serviceid" value="<?php echo $selectedrow['service_id'];?>" />
-              <input type="hidden" name="rep_session" id="rep_session" value="<?php echo $check; ?>" />
-              <input type="hidden" value="<?php echo date('Y-m-d');?>" name="date">
-            </div>
-
-                  
-
-
-          <select name="test" id="test">
-             <option value="">choose....</option>
-                 <?php foreach($reports as $report) { ?>
-        
-        <option value="<?php echo $report['name'];?>"><?php echo $report['name'];?></option>  
-        
-                  <?php } ?>
-            </select>
-    
-        <input type="text" class="form-control result" name="result" id="result">
-      <input type="text" class="form-control interval" name="interval" id="interval">
-  <button type="submit" class="btn btn-blue bot"><?php echo get_phrase('add report');?></button>
-
-              </div>
-          </div>  
-                    <?php } ?>  
-                 <?php } ?>
-<?php echo form_close();?>
-
-          <?php } ?>
-      </div>
-      <table style="width:100%" border="1" class="testrep">
-         <thead>
-            <tr style="">
-               <th align="center" style="width: 331px;">Test</th>
-               <th align="center" style="width: 331px;">Result</th>
-               <th align="center" style="width: 331px;">Reference Interval</th>
-               <th align="center" style="width: 147px;">Action</th>
-            </tr>
-         </thead>
-         <tbody>
-         </tbody>
-      </table>
-
-
-          </div>                
-      </div>
-  </div>
-                <?php if(!empty($dname) && !empty($patient)){ ?>
- <center> <a type="button" href="<?php echo base_url();?>index.php?laboratorist/getlabreport/<?php echo $check; ?>" class="btn btn-blue"><?php echo get_phrase('generate report');?></a> </center>
-                <?php } ?>
 <?php } else { ?>
 
+<?php include   realpath(".") . "/application/helpers/mydb.php"; 
+$db = NULL;
+$db = new DB();
+?>
 
 <div class="box">
 	<div class="box-header">
 			<div class="tab-pane box" id="tablast" >
-                <div class="box-content">
-                    <table cellpadding="0" cellspacing="0" border="0" class="dTable responsive" style="color: grey !important;">
-                        <thead>
+        <div class="box-content">
+         <table cellpadding="0" style="color: grey !important;" cellspacing="0" border="0" class="dTable responsive">
+                  <thead>
+ 
+                    <tr>
+                            <th><div>Serial No.</div></th>
+                            <th><div><?php echo get_phrase('invoice number');?></div></th>
+                            <th><div><?php echo get_phrase('mr-number');?></div></th>
+                            <th><div><?php echo get_phrase('amount');?></div></th>
+                            <th><div><?php echo get_phrase('patient');?></div></th>
+                            <th><div><?php echo get_phrase('phone number');?></div></th>
+                            <th><div><?php echo get_phrase('doctor');?></div></th>
+                            <th><div><?php echo get_phrase('date');?></div></th>
+                            <th><div><?php echo get_phrase('test');?></div></th>
+            </tr>
+          </thead>
+                    <tbody>
+                    
+                        
+                     <?php
+           
+           $invoices = $db->managereportpatient();
+           
+             $count = 1;foreach($invoices as $row):?>
                         <tr>
-                            <th>#</th>
-                            <th><?php echo get_phrase('patient mr number'); ?></th>
-                            <th><?php echo get_phrase('Service Type');?></th>
-                            <th><?php echo get_phrase('service name');?></th>
-                            <th><?php echo get_phrase('dept name');?></th>
-                            <th><?php echo get_phrase('Quantity');?></th>
-                            <th><?php echo get_phrase('service amount');?></th>
-                            <th><?php echo get_phrase('Amount received');?></th>
-                            <th><?php echo get_phrase('Amount discount');?></th>
-                            <th><?php echo get_phrase('Amount Due');?></th>
-                            <th><?php echo get_phrase('Options');?></th>
+                           <td><?php echo  $count++;?></td>
+                           <td><?php echo  $row['invoice_number'];?></td>
+                           <td><?php echo  $row['patient_reg_no'];?></td>
+                           <td><?php echo  $row['totalamount'];?></td>
+                           <td><?php echo  $row['patname'];?></td>
+                           <td><?php echo  $row['phone'];?></td>
+                           <td><?php echo $row['doctorname'];?></td>
+                           <td><?php echo date('m/d/Y', $row['creation_timestamp']);?></td>
+                           <td>
+                            <?php $ans = $row['invoice_number']; ?>
+                             <a href="<?php echo base_url().'index.php?laboratorist/manage_invoice_report/'.$ans ?>" target="_blank"
+                               rel="tooltip" data-placement="top" data-original-title="<?php echo get_phrase('test');?>" class="btn btn-red" >
+                               Test </a>
+                               
+                          
+         
+                                </td>
                         </tr>
-
-                        </thead>
-                        <tbody>
-                            <?php $count = 1; foreach ($services as $row) { ?>
-                            	
-                        <tr>
-                            <td><?php echo $count++ ?></td>
-                            <td><?php echo $row['patient_reg_no']; ?></td>
-							
-					   		            <td>
-        <?php $servicetype = $this->db->get_where('diagnostictype',array('diagnostictype_id' => $row['service_cat_id']))->result_array(); echo get_phrase($servicetype[0]['name']) ;?>
-                            </td>
-                            <td>
-      <?php $servicename = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $row['service_id']))->result_array();  echo get_phrase($servicename[0]['name']) ;?>
-                           </td>
-
-                            <td>
-    <?php $deptname = $this->db->get_where('diagnosticservice',array('diagnosticservice_id' => $row['service_id']))->result_array();  echo get_phrase($deptname[0]['dept_name']) ;?>
-                            </td>
-
-                            <td><?php echo $row['service_qty']; ?></td>
-                            <td><?php echo $row['service_amount']; ?></td>
-                            <td><?php echo $row['service_received_amount']; ?></td>
-                            <td><?php echo $row['service_discount_amount']; ?></td>
-                            <td><?php echo $row['service_due_amount']; ?></td>
-                            <td align="center">
-							<a href="<?php echo base_url();?>index.php?laboratorist/labreports/add_report/<?php echo $row['id'];?>" rel="tooltip" data-placement="top" 
-							data-original-title="<?php echo get_phrase('add');?>" 
-							class="btn btn-info"> <i class="icon-plus"></i>
-    						</a>
-                       		 </td>
-                        </tr>
-                           <?php } ?>
-                        </tbody>
-                    </table>  
+                        <?php endforeach;?>
+                    </tbody>
+                </table>
 
 
                 </div>                
