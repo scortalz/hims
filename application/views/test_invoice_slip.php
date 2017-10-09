@@ -507,12 +507,11 @@
       type: "POST",
       url: "<?php echo base_url();?>index.php?laboratorist/getreport/"+val,
        data: {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'},
-      dataType: "json",
+      dataType: "html",
 
       success: function(args) {
-        var data = jQuery.parseJSON(JSON.stringify(args));
+        var data = jQuery.parseJSON(args);
         if (data !== null) {
-
         $('.reportdata').empty();
         $('#saveresultform').find('.table-bordered').remove();
         $('#saveresultform').find('.btn-info').remove();
@@ -520,11 +519,10 @@
      	$('.reportdata').after('<input type="hidden" class="form-control" name="servicename" value="'+val+'"><br>');
       
       var x = 0;
-      $.each(data, function(index,el) {
+      $.each(data[0], function(index,el) {
 
-      	var inputs = '<tr><td class="borderstyletd">'+el+'</td><td><input required type="text" class="form-control" name="'+el+'"></td><td><input type="text" required class="form-control" name="'+ x++ +'"></td></tr>';
-/*
-    	var inputs = '<label for="'+el+'">Name:'+el+'</label>'+'<input type="text" class="form-control" name="'+el+'">'+ '<label for="'+ x++ +'">Interval</label>' +'<input type="text" class="form-control" name="' + x +'">';*/
+      	var inputs = '<tr><td class="borderstyletd">'+el+'</td><td><input required type="text" class="form-control" name="'+el+'"></td><td><input type="text" required class="form-control" readonly name="'+ x +'" value="'+data[1][x++]+'"></td></tr>';
+
        	$('.inputfromdb').append(inputs);
        });
 

@@ -10,6 +10,7 @@
                             <th><div>Count.</div></th>
                             <th><div><?php echo get_phrase('Sub service name');?></div></th>
                             <th><div><?php echo get_phrase('service name');?></div></th>
+                             <th><div><?php echo get_phrase('interval');?></div></th>
                             <th><div><?php echo get_phrase('action');?></div></th>
                             
                        
@@ -30,6 +31,7 @@
 
 
                            <td><?php echo $service->name;?></td>
+                            <td><?php echo $row['interval'];?></td>
                            <td>
                             
                              <span onclick="delsubser(<?php echo $row['relation_id']; ?>)" target="_blank"
@@ -74,6 +76,9 @@
                                     </select></div>
                                 <div class="control-group"  id="subservice" style="">
                                     <input type="text" required class="form-control subserv" placeholder="Enter Sub Service Name" name="subservice" value="">
+                                </div>
+                                <div class="control-group"  id="interval" style="">
+                                    <input type="text" required class="form-control subserv" placeholder="Enter Interval" name="interval" value="">
                                 </div>
                                 <input type="hidden" name="<?php echo $this->security->get_csrf_token_name(); ?>" value="<?php echo $this->security->get_csrf_hash(); ?>">
                                <div class="control-group" id="submit" style="">

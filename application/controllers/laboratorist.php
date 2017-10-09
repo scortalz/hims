@@ -158,12 +158,14 @@ class laboratorist extends CI_Controller
 		$this->db->where('service_id',$val);
 		
 		$data = $this->db->get()->result();
-
+		$result = array();
 		foreach ($data as $key => $value) {
-			$check[$key] = $value->sub_service_name;
+			$result[0][$key] = $value->sub_service_name;
 		}
-	
-		echo json_encode($check);
+		foreach ($data as $key => $value) {
+			$result[1][$key] = $value->interval;
+		}
+		echo json_encode($result);
 	}
 	public function submittest(){
 		$invoice 		= $this->input->post('invoiceno');

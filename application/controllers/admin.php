@@ -186,6 +186,7 @@ class Admin extends CI_Controller
 	function addserviceinfo(){
 			$data['service_id'] = $this->input->post('diagnostictype_id');
 			$data['sub_service_name'] = $this->input->post('subservice');
+			$data['interval'] = $this->input->post('interval');
 			$resp = $this->db->insert('service_relations', $data);
 			$result = false;
 			if($resp ==  true){
