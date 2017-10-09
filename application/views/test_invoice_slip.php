@@ -507,11 +507,12 @@
       type: "POST",
       url: "<?php echo base_url();?>index.php?laboratorist/getreport/"+val,
        data: {'<?php echo $this->security->get_csrf_token_name(); ?>':'<?php echo $this->security->get_csrf_hash(); ?>'},
-      dataType: "html",
+      dataType: "json",
 
       success: function(args) {
-        var data = jQuery.parseJSON(args);
-        if (data !== null) {
+        var data = jQuery.parseJSON(JSON.stringify(args));
+    	var objstatus = jQuery.isEmptyObject(data);
+        if (objstatus == false) {
         $('.reportdata').empty();
         $('#saveresultform').find('.table-bordered').remove();
         $('#saveresultform').find('.btn-info').remove();
@@ -532,7 +533,7 @@
        	$('.reportdata').empty();
        	$('#saveresultform').find('.table-bordered').remove();
         $('#saveresultform').find('.btn-info').remove();
-       	$('.reportdata').html('<h1>No Sub service is associated');
+       	$('.reportdata').html('<h1>No Sub service is associated</h1>');
        }    
     }  
     });
